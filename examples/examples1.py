@@ -20,15 +20,6 @@ if __name__ == "__main__":
     for item in r2: print(item)
     print()
 
-    # r2 = tc.get_order(order_id='05W9DZFC08EB4C5LH0ET')
-    # print(5, len(r2), r2)
-
-    # r2 = tc.get_order(order_id='05W9DZFC08EB4C5LH0ET')
-    # print(5, len(r2), r2)
-    #
-    # r2 = tc.cancel_order(order_id='05W9DZFC08EB4C5LH0ET')
-    # print(5, len(r2), r2)
-
     # r2 = tc.get_instruments()
     # print(r2)
 
@@ -46,9 +37,6 @@ if __name__ == "__main__":
     #
     # r2 = tc.get_trades(account_id=api_acc)
     # print(r2)
-
-    # r2 = tc.get_orders(params={"orderId": '05W9DZFC08EB4C5LH0ET'})
-    # print(1, r2)
 
     order_info = {
       # "clOrdId": "string",

@@ -21,6 +21,7 @@ class TagomiClient:
         self._api_url = "https://api.tagomi.com/v1"
         self._access_token = self._get_access_token()
         self._default_account_id = None
+        self._update_instruments()
 
     def _get_access_token(self):
         url = "https://auth.tagomi.com/oauth2/default/v1/token"
@@ -74,13 +75,13 @@ class TagomiClient:
         return response
 
     def get_instruments(self, account_id='', params=None):
-        return self._send_request('/instruments', account_id=account_id)
+        return self._send_request('/instruments', account_id=account_id, params=params)
 
     def get_account(self, account_id):
         return self._send_request('/accounts/' + str(account_id))
 
     def get_accounts(self, params=None):
-        return self._send_request('/accounts')
+        return self._send_request('/accounts', params=params)
 
     def set_default_account_id(self, account_id):
         self._default_account_id = account_id
@@ -91,10 +92,10 @@ class TagomiClient:
         return self._send_request('/accounts/' + str(account_id) + '/balances')
 
     def get_order(self, order_id, account_id='', params=None):
-        return self._send_request('/orders/' + str(order_id), account_id=account_id)
+        return self._send_request('/orders/' + str(order_id), account_id=account_id, params=params)
 
     def get_orders(self, account_id='', params=None):
-        return self._send_request('/orders', account_id=account_id)
+        return self._send_request('/orders', account_id=account_id, params=params)
 
     def place_order(self, account_id='', params=None):
         if params is None: raise ValueError("Need order info")
@@ -104,19 +105,24 @@ class TagomiClient:
         return self._send_request('/orders/' + str(order_id), method='DELETE', account_id=account_id, params=params)
 
     def get_deposits(self, account_id='', params=None):
-        return self._send_request('/deposits', account_id=account_id)
+        return self._send_request('/deposits', account_id=account_id, params=params)
 
     def get_withdrawals(self, account_id='', params=None):
-        return self._send_request('/withdrawals', account_id=account_id)
+        return self._send_request('/withdrawals', account_id=account_id, params=params)
 
     def get_trade(self, trade_id, account_id='', params=None):
-        return self._send_request('/trades/' + str(trade_id), account_id=account_id)
+        return self._send_request('/trades/' + str(trade_id), account_id=account_id, params=params)
 
     def get_trades(self, account_id='', params=None):
-        return self._send_request('/trades', account_id=account_id)
+        return self._send_request('/trades', account_id=account_id, params=params)
 
     def get_market_data(self, bookType, instrumentId):
         return self._send_request('/books/' + str(bookType) + '/' + str(instrumentId))
+
+    def _update_instruments(self):
+        new_instruments = self.get_instruments()
+        for ins in new_instruments:
+            instrument_ids[ins['id']] = ins['symbol']
 
     @staticmethod
     def convert_instrumentId(instrumentId):

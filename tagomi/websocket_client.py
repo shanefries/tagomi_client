@@ -1,12 +1,11 @@
 import time, json, warnings, copy, requests, base64
-from websocket import WebSocketApp
-import asyncio, websockets
-from threading import Thread
 from tagomi.utils import *
+from threading import Thread
 import websocket
-from websocket import WebSocketApp, create_connection, WebSocketConnectionClosedException
+from websocket import create_connection, WebSocketConnectionClosedException
 from urllib.parse import urlencode
 websocket.enableTrace(True)
+
 
 class InsecureRequestWarning(Warning): pass
 # warnings.filterwarnings("ignore", message='Unverified HTTPS request is being made. '
