@@ -15,14 +15,19 @@ if __name__ == "__main__":
     tc.set_default_account_id(api_acc)
 
     # Get trades
-    print("\nTRADES")
-    trades = tc.get_orders(params={'limit': 1000})
-    real_trades = []
-    for trade in trades:
-        if trade['filledQty'] > 0:  # The fill qty is how much actually traded, this filters to all completed/partial
-            real_trades.append(trade)
-    print(len(trades), trades)
-    print(len(real_trades), real_trades, '\n')
+    print("\nORDERS")
+    orders = tc.get_orders(params={'limit': 1000})
+    real_orders = []
+    for order in orders:
+        if order['filledQty'] > 0:  # The fill qty is how much actually traded, this filters to all completed/partial
+            real_orders.append(order)
+    print(len(orders), orders[:len(orders)//10])
+    print(len(real_orders), real_orders, '\n')
+
+    # Get orders
+    print("TRADES")
+    trades = tc.get_trades(params={'limit': 1000})
+    print(len(trades), trades[:len(trades)//10], '\n')
 
     # Get deposits
     print("DEPOSITS")
